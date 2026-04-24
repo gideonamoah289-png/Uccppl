@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UCC Pharmacy Mobile League</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; background: #000; overflow: hidden; touch-action: none; }
+        canvas { display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<script>
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#1e8449',
+    physics: {
+        default: 'arcade',
+        arcade: { gravity: { y: 0 }, debug: false }
+    },
+    scene: { preload: preload, create: create, update: update }
+};
+
+const game = new Phaser.Game(config);
+let player, ball, goal, scoreText, timeText;
+let score = 0;
+let timeLeft = 90;
+let joystickBase, joystickThumb;
+let isMoving = false;
+
+function preload() {
+    const graphics = this.make.graphics({x: 0, y: 0, add: false});
+    
+    // Ball
+    graphics.fillStyle(0xffffff, 1);
+    graphics.fillCircle(10, 10, 10);
+    graphics.generateTexture('ball', 20, 20);
+    graphics.clear();
+
+    // Player - Aboronoma
+    graphics.fillStyle(0x0044cc, 1);
+    graphics.fillRect(0, 0, 40, 40);
+    graphics.lineStyle(2, 0xffffff);
+    graphics.strokeRect(0, 0, 40, 40);
+    graphics.generateTexture('player', 40, 40);
+    graphics.clear();
